@@ -1,0 +1,136 @@
+let current_song = 0;
+let value = 0.1;
+function preload() {
+  song1 = loadSound("happiness_of_marionette_omake.ogg");
+  sound_effect1 = loadSound("se_umi.wav");
+  image1 = loadImage("happiness_of_marionette.jpg");
+
+  song2 = loadSound("hope.ogg");
+  sound_effect2 = loadSound("teleport_1.wav");
+  image2 = loadImage("hope_image.jpg");
+
+  song3 = loadSound("rahu_goldenslaughterer.ogg");
+  sound_effect3 = loadSound("clash.wav");
+  image3 = loadImage("golden_slaughterer.jpg");
+
+  song4 = loadSound("dread_of_the_grave.ogg");
+  sound_effect4 = loadSound("thunder_3.wav");
+  image4 = loadImage("dread_of_the_grave_image.jpg");
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  song1.setVolume(0.15);
+  sound_effect1.setVolume(0.1);
+  song2.setVolume(0.2);
+  sound_effect2.setVolume(0.1);
+  song3.setVolume(0.1);
+  sound_effect3.setVolume(0.1);
+  song4.setVolume(0.1);
+  sound_effect4.setVolume(0.1);
+}
+
+function draw() {
+  background(0);
+  if (current_song == 1) {
+    image(image1, 0, 0, windowWidth, windowHeight);
+  } else if (current_song == 2) {
+    image(image2, 0, 0, windowWidth, windowHeight);
+  } else if (current_song == 3) {
+    image(image3, 0, 0, windowWidth, windowHeight);
+  } else if (current_song == 4) {
+    image(image4, 0, 0, windowWidth, windowHeight);
+  }
+}
+
+function keyPressed() {
+  if (keyCode == LEFT_ARROW) {
+    if (current_song > 1) {
+      current_song--;
+      stop_all();
+      load_scene(current_song);
+    } else if (current_song == 0) {
+      current_song = 1;
+      load_scene(current_song);
+    }
+  } else if (keyCode == RIGHT_ARROW) {
+    if (current_song < 4 && current_song != 0) {
+      current_song++;
+      stop_all();
+      load_scene(current_song);
+    } else if (current_song == 0) {
+      current_song = 4;
+      load_scene(current_song);
+    }
+  }
+  if (keyCode == UP_ARROW) {
+    if (value < 0.3) {
+      value += 0.05;
+      if (current_song == 1) {
+        song1.amp(value);
+      } else if (current_song == 2) {
+        song2.amp(value);
+      } else if (current_song == 3) {
+        song3.amp(value);
+      } else if (current_song == 4) {
+        song4.amp(value);
+      }
+    }
+  } else if (keyCode == DOWN_ARROW) {
+    if (value > 0) {
+      value -= 0.05;
+      if (current_song == 1) {
+        song1.amp(value);
+      } else if (current_song == 2) {
+        song2.amp(value);
+      } else if (current_song == 3) {
+        song3.amp(value);
+      } else if (current_song == 4) {
+        song4.amp(value);
+      }
+    }
+  }
+}
+
+function mouseClicked() {
+  if (current_song == 1) {
+    sound_effect1.play();
+  } else if (current_song == 2) {
+    sound_effect2.play();
+  } else if (current_song == 3) {
+    sound_effect3.play();
+  } else if (current_song == 4) {
+    sound_effect4.play();
+  }
+}
+
+function load_scene(song) {
+  if (song == 1) {
+    song1.play();
+    song1.loop();
+    sound_effect1.play();
+  } else if (song == 2) {
+    song2.play();
+    song2.loop();
+    sound_effect2.play();
+  } else if (song == 3) {
+    song3.play();
+    song3.loop();
+    sound_effect3.play();
+  } else if (song == 4) {
+    song4.play();
+    song4.loop();
+    sound_effect4.play();
+  }
+}
+
+function stop_all() {
+  song1.stop();
+  song2.stop();
+  song3.stop();
+  song4.stop();
+  sound_effect1.stop();
+  sound_effect2.stop();
+  sound_effect3.stop();
+  sound_effect4.stop();
+}
